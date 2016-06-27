@@ -132,9 +132,11 @@ module.exports = function(runtime) {
       task.task.routes.push(runtime.route);
 
       // Treeherder
-      var treeherderRoute = runtime.taskclusterTreeherder.route + '.' +
-                            project.name + '.' +
-                            commit;
+      var treeherderRoute = [runtime.taskclusterTreeherder.route,
+                            "v2",
+                            repository.owner.login + "/" + project.name,
+                            commit,
+                            pullRequest.number].join('.');
 
       task.task.routes.push(treeherderRoute);
 
